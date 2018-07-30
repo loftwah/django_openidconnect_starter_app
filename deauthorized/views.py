@@ -76,9 +76,6 @@ def auth_callback(request):
     if 'code' not in response or 'state' not in response:
         return HttpResponseBadRequest('Invalid request')
 
-    if response['state'] not in sessions:
-        return HttpResponseBadRequest('Invalid request')
-
     redirect_uri = 'https://{}{}'.format(request.get_host(),
                                          reverse('openid_auth_callback'))
 
@@ -99,7 +96,6 @@ def auth_callback(request):
 
     credentials = response.json()
 
-    return HTTPResgg
 
     # GET USER INFO - START
     response = requests.get(userinfo_endpoint, headers={
