@@ -90,7 +90,7 @@ def auth_callback(request):
 
     access_token_response = requests.post(token_endpoint,
                                           auth=(CLIENT_ID, CLIENT_SECRET),
-                                          params=params)
+                                          data=params)
 
     return JsonResponse(dict(results=access_token_response.json()))
 
