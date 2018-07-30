@@ -12,6 +12,7 @@ from oic.oic import Client
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 from oic import rndstr
 
+from jwkest.jwk import load_jwks_from_url
 from jwkest.jwk import SYMKey
 from jwkest.jws import JWS
 
@@ -32,6 +33,7 @@ provider_info = client.provider_config(ISSUER)
 auth_endpoint = provider_info['authorization_endpoint']
 token_endpoint = provider_info['token_endpoint']
 userinfo_endpoint = provider_info['userinfo_endpoint']
+jwks_endpoint = provider_info['jwks_endpoint']
 
 sessions = {}
 
@@ -108,11 +110,11 @@ def auth_callback(request):
 
     user_json = user_response.json()
 
-    pinfo = {k: v for k, v in provider_info.__dict__.items() if 'endpoint' in k}
+    pinfo = {k: v for k, v in provider_info.__dict__.items() if 'jwk' in k}
 
     return JsonResponse(dict(user=user_json,
                              sessions=sessions,
-                             id_token=id_token,
+                             id_token=verify_id_token(id_token),
                              provider_info=pinfo))
 
 
@@ -127,8 +129,8 @@ def verify_id_token(token):
     if header['alg'] not in ['HS256', 'RS256']:
         raise ValueError('Unsupported Signing Method')
 
-    id_token = JWS().verify_compact(token,
-                                    [SYMKey(key=str(CLIENT_SECRET))])
+    signing_keys = load_jwks_from_url(jwks_endpoint) if header['alg'] == 'RS256' else [SYMKey(key=str(CLIENT_SECRET))]
+    id_token = JWS().verify_compact(token, signing_keys)
     return json.loads(id_token)
 
 
