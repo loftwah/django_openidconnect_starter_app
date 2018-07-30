@@ -35,22 +35,17 @@ token_endpoint = provider_info['token_endpoint']
 userinfo_endpoint = provider_info['userinfo_endpoint']
 jwks_uri = provider_info['jwks_uri']
 
-sessions = {}
-
 
 def index(request):
     return render(request, 'index.html')
 
 
 def auth(request):
-    global sessions
     global auth_endpoint
 
     session_info = {}
     session_info['state'] = rndstr()
     session_info['nonce'] = rndstr()
-
-    sessions[session_info['state']] = session_info
 
     redirect_uri = 'https://{}{}'.format(request.get_host(),
                                          reverse('openid_auth_callback'))
@@ -110,15 +105,11 @@ def auth_callback(request):
 
     user_json = user_response.json()
 
-    pinfo = {k: v for k, v in provider_info.__dict__.items() if 'jwk' in k}
-
-    return JsonResponse(dict(user=user_json,
-                             sessions=sessions,
-                             id_token=verify_id_token(id_token),
-                             provider_info=pinfo))
+    return JsonResponse(dict(userInfoResponse=user_json,
+                             idTokenVerification=verify_id(id_token)))
 
 
-def verify_id_token(token):
+def verify_id(token):
     global jwks_uri
 
     header, claims, signature = token.split('.')
