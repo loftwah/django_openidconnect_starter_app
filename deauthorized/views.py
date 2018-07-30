@@ -12,6 +12,9 @@ from oic.oic import Client
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 from oic import rndstr
 
+from jwkest.jwk import SYMKey
+from jwkest.jws import JWS
+
 import requests
 
 
@@ -67,11 +70,9 @@ def auth_callback(request):
     global sessions
     global token_endpoint
     global userinfo_endpoint
+    global provider_info
 
-    if request.method == 'GET':
-        response = request.GET
-    elif request.method == 'POST':
-        response = request.POST
+    response = request.GET
 
     if 'code' not in response or 'state' not in response:
         return HttpResponseBadRequest('Invalid request')
@@ -79,7 +80,7 @@ def auth_callback(request):
     redirect_uri = 'https://{}{}'.format(request.get_host(),
                                          reverse('openid_auth_callback'))
 
-    # GET ACCESS TOKEN
+    # get access token
     params = {
         'grant_type': 'authorization_code',
         'code': response['code'],
@@ -95,8 +96,9 @@ def auth_callback(request):
 
     access_json = access_token_response.json()
     access_token = access_json['access_token']
+    id_token = access_json['id_token']
 
-    # GET USER INFO - START
+    # get userinfo token
     user_response = requests.get(userinfo_endpoint, headers={
         'Authorization': 'Bearer {}'.format(access_token)
     })
@@ -105,40 +107,30 @@ def auth_callback(request):
         return HttpResponseBadRequest('Invalid User Info Response')
 
     user_json = user_response.json()
-    return JsonResponse(user_json)
 
-    # GET ID TOKEN
-    # base64 decode
-
-    # VERIFY ID TOKEN
-    # base64 decode
-    #params = {
-    #    'grant_type': 'authorization_code',
-    #    'code': response['code'],
-    #    'redirect_uri': redirect_uri
-    #}
-
-    # get openid subject
-    # --@openid_subject = @id_token.subject
+    return JsonResponse(dict(user=user_json,
+                             sessions=sessions,
+                             id_token=id_token,
+                             provider_info=provider_info))
 
 
-def verify_id_token(self, token):
-    log.debug('Verifying token %s' % token)
+def verify_id_token(token):
     header, claims, signature = token.split('.')
-    header = b64decode(header)
-    claims = b64decode(claims)
+    header = b64d(header)
+    claims = b64d(claims)
 
     if not signature:
-        raise errors.InvalidIdToken()
+        raise ValueError('Invalid Token')
 
     if header['alg'] not in ['HS256', 'RS256']:
-        raise errors.UnsuppportedSigningMethod(header['alg'], ['HS256', 'RS256'])
+        raise ValueError('Unsupported Signing Method')
 
-    id_token = JWS().verify_compact(token, self.signing_keys)
-    log.debug('Token verified, %s' % id_token)
+    id_token = JWS().verify_compact(token,
+                                    [SYMKey(key=str(CLIENT_SECRET))])
     return json.loads(id_token)
 
-def b64decode(token):
+
+def b64d(token):
     token += ('=' * (len(token) % 4))
     decoded = b64decode(token)
     return json.loads(decoded)
