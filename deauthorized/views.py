@@ -129,10 +129,15 @@ def verify_id_token(token):
         raise ValueError('Invalid Token')
 
     if header['alg'] not in ['HS256', 'RS256']:
-        raise ValueError('Unsupported Signing Method')
+        raise ValueError('Unsupported signing method')
 
-    signing_keys = load_jwks_from_url(jwks_uri) if header['alg'] == 'RS256' else [SYMKey(key=str(CLIENT_SECRET))]
+    if header['alg'] == 'RS256':
+        signing_keys = load_jwks_from_url(jwks_uri)
+    else:
+        signing_keys = [SYMKey(key=str(CLIENT_SECRET))]
+
     id_token = JWS().verify_compact(token, signing_keys)
+    id_token['header_info'] = header
     return id_token
 
 
