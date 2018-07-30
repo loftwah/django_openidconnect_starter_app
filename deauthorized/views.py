@@ -108,10 +108,12 @@ def auth_callback(request):
 
     user_json = user_response.json()
 
+    pinfo = {k: v for k, v in provider_info.__dict__ if 'endpoint' in k}
+
     return JsonResponse(dict(user=user_json,
                              sessions=sessions,
                              id_token=id_token,
-                             provider_info=provider_info))
+                             provider_info=pinfo))
 
 
 def verify_id_token(token):
