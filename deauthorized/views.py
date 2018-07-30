@@ -58,7 +58,8 @@ def auth(request):
         'scope': SCOPES_SUPPORTED
     }
 
-    return redirect(auth_endpoint + '?' + urlencode(params))
+    params_str = '&'.join(['{}={}'.format(k, v) for k, v in params.items()])
+    return redirect(auth_endpoint + '?' + params_str)
 
 
 def auth_callback(request):
