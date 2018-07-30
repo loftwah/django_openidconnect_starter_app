@@ -90,7 +90,7 @@ def auth_callback(request):
                                           auth=(CLIENT_ID, CLIENT_SECRET),
                                           data=params)
 
-    if response.status_code != 200:
+    if access_token_response.status_code != 200:
         return HttpResponseBadRequest('Invalid Access Token Response')
 
     access_json = access_token_response.json()
