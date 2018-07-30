@@ -55,11 +55,10 @@ def auth(request):
         'nonce': session_info['nonce'],
         'client_id': CLIENT_ID,
         'redirect_uri': redirect_uri,
-        'scope': SCOPES_SUPPORTED
+        'scope': ' '.join(SCOPES_SUPPORTED)
     }
 
-    params_str = '&'.join(['{}={}'.format(k, v) for k, v in params.items()])
-    return redirect(auth_endpoint + '?' + params_str)
+    return redirect(auth_endpoint + '?' + urlencode(params))
 
 
 def auth_callback(request):
@@ -80,7 +79,6 @@ def auth_callback(request):
     if response['state'] not in sessions:
         return HttpResponseBadRequest('Invalid request')
 
-    return JsonResponse(dict(results=response))
     redirect_uri = 'https://{}{}'.format(request.get_host(),
                                          reverse('openid_auth_callback'))
 
