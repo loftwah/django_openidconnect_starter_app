@@ -133,7 +133,7 @@ def verify_id_token(token):
 
     signing_keys = load_jwks_from_url(jwks_uri) if header['alg'] == 'RS256' else [SYMKey(key=str(CLIENT_SECRET))]
     id_token = JWS().verify_compact(token, signing_keys)
-    return json.loads(id_token)
+    return id_token
 
 
 def b64d(token):
