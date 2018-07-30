@@ -79,6 +79,7 @@ def auth_callback(request):
     if response['state'] not in sessions:
         return HttpResponseBadRequest('Invalid request')
 
+    return JsonResponse(dict(results=response))
     redirect_uri = 'https://{}{}'.format(request.get_host(),
                                          reverse('openid_auth_callback'))
 
