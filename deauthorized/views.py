@@ -85,8 +85,7 @@ def auth_callback(request):
     # GET ACCESS TOKEN
     params = {
         'grant_type': 'authorization_code',
-        'code': response['code'],
-        'redirect_uri': redirect_uri
+        'code': response['code']
     }
 
     access_token_response = requests.post(token_endpoint,
