@@ -90,23 +90,22 @@ def auth_callback(request):
                                           auth=(CLIENT_ID, CLIENT_SECRET),
                                           data=params)
 
-    return JsonResponse(dict(results=access_token_response.json()))
-
     if response.status_code != 200:
         return HttpResponseBadRequest('Invalid Access Token Response')
 
-    credentials = response.json()
-
+    access_json = access_token_response.json()
+    access_token = access_json['access_token']
 
     # GET USER INFO - START
-    response = requests.get(userinfo_endpoint, headers={
-        'Authorization': 'Bearer %s' % access_token
+    user_response = requests.get(userinfo_endpoint, headers={
+        'Authorization': 'Bearer {}'.format(access_token)
     })
 
-    if response.status_code != 200:
-        raise errors.RequestError(provider.userinfo_endpoint, response.status_code)
+    if user_response.status_code != 200:
+        return HttpResponseBadRequest('Invalid User Info Response')
 
-    claims = response.json()
+    user_json = user_response.json()
+    return JsonResponse(user_json)
 
     # GET ID TOKEN
     # base64 decode
