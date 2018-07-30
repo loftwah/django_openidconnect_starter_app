@@ -33,7 +33,7 @@ provider_info = client.provider_config(ISSUER)
 auth_endpoint = provider_info['authorization_endpoint']
 token_endpoint = provider_info['token_endpoint']
 userinfo_endpoint = provider_info['userinfo_endpoint']
-jwks_endpoint = provider_info['jwks_endpoint']
+jwks_uri = provider_info['jwks_uri']
 
 sessions = {}
 
@@ -119,6 +119,8 @@ def auth_callback(request):
 
 
 def verify_id_token(token):
+    global jwks_uri
+
     header, claims, signature = token.split('.')
     header = b64d(header)
     claims = b64d(claims)
@@ -129,7 +131,7 @@ def verify_id_token(token):
     if header['alg'] not in ['HS256', 'RS256']:
         raise ValueError('Unsupported Signing Method')
 
-    signing_keys = load_jwks_from_url(jwks_endpoint) if header['alg'] == 'RS256' else [SYMKey(key=str(CLIENT_SECRET))]
+    signing_keys = load_jwks_from_url(jwks_uri) if header['alg'] == 'RS256' else [SYMKey(key=str(CLIENT_SECRET))]
     id_token = JWS().verify_compact(token, signing_keys)
     return json.loads(id_token)
 
