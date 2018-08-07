@@ -1,5 +1,10 @@
 from os import environ
 from base64 import b64decode
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.http import urlencode
@@ -88,7 +93,14 @@ def auth_callback(request):
     access_token_response = requests.post(token_endpoint,
                                           auth=auth,
                                           data=params)
-    access_token_response.raise_for_status()
+    try:
+        access_token_response.raise_for_status()
+    except:
+        c = access_token_response.status_code
+        p = json.dumps(params)
+        logger.error("access token request {} error: {}".format(c, p))
+        raise
+
     access_json = access_token_response.json()
     access_token = access_json['access_token']
     id_token = access_json['id_token']
