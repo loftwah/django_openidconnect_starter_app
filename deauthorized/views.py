@@ -19,9 +19,9 @@ from jwkest.jws import JWS
 import requests
 
 
-ISSUER = environ.get('OPENID_ISSUER', 'https://srv.qryp.to/op')
-CLIENT_ID = environ.get('OPENID_CLIENT_ID', 'deauthorized')
-CLIENT_SECRET = environ.get('OPENID_CLIENT_SECRET', '123')
+OPENID_ISSUER = environ.get('OPENID_ISSUER', 'https://srv.qryp.to/op')
+OPENID_CLIENT_ID = environ.get('OPENID_CLIENT_ID', 'deauthorized')
+OPENID_CLIENT_SECRET = environ.get('OPENID_CLIENT_SECRET', '123')
 SCOPES_SUPPORTED = ['openid', 'email', 'profile', 'address']
 HOST = environ.get('OPENID_HOST', 'srv.qryp.to')
 PORT = environ.get('OPENID_PORT', '443')
@@ -29,7 +29,7 @@ SCHEME = 'https'
 
 
 client = Client(client_authn_method=CLIENT_AUTHN_METHOD)
-provider_info = client.provider_config(ISSUER)
+provider_info = client.provider_config(OPENID_ISSUER)
 auth_endpoint = provider_info['authorization_endpoint']
 token_endpoint = provider_info['token_endpoint']
 userinfo_endpoint = provider_info['userinfo_endpoint']
@@ -53,7 +53,7 @@ def auth(request):
         'response_type': 'code',
         'state': session_info['state'],
         'nonce': session_info['nonce'],
-        'client_id': CLIENT_ID,
+        'client_id': OPENID_CLIENT_ID,
         'redirect_uri': redirect_uri,
         'scope': ' '.join(SCOPES_SUPPORTED)
     }
@@ -84,13 +84,11 @@ def auth_callback(request):
         'redirect_uri': redirect_uri
     }
 
+    auth = (OPENID_CLIENT_ID, OPENID_CLIENT_SECRET)
     access_token_response = requests.post(token_endpoint,
-                                          auth=(CLIENT_ID, CLIENT_SECRET),
+                                          auth=auth,
                                           data=params)
-
-    if access_token_response.status_code != 200:
-        return HttpResponseBadRequest('Invalid Access Token Response')
-
+    access_token_response.raise_for_status()
     access_json = access_token_response.json()
     access_token = access_json['access_token']
     id_token = access_json['id_token']
@@ -125,7 +123,7 @@ def verify_id(token):
     if header['alg'] == 'RS256':
         signing_keys = load_jwks_from_url(jwks_uri)
     else:
-        signing_keys = [SYMKey(key=str(CLIENT_SECRET))]
+        signing_keys = [SYMKey(key=str(OPENID_CLIENT_SECRET))]
 
     id_token = JWS().verify_compact(token, signing_keys)
     id_token['header_info'] = header
