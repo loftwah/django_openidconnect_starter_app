@@ -89,9 +89,9 @@ def auth_callback(request):
         'redirect_uri': redirect_uri
     }
 
-    auth = (OPENID_CLIENT_ID, OPENID_CLIENT_SECRET)
+    openid_auth = (OPENID_CLIENT_ID, OPENID_CLIENT_SECRET)
     access_token_response = requests.post(token_endpoint,
-                                          auth=auth,
+                                          auth=openid_auth,
                                           data=params)
     try:
         access_token_response.raise_for_status()
