@@ -100,7 +100,10 @@ def auth_callback(request):
 
     access_json = access_token_response.json()
     access_token = access_json['access_token']
+
     id_token = access_json['id_token']
+    if not id_token:
+        return JsonResponse({'message': 'null id token in access response'})
 
     # get userinfo token
     user_response = requests.get(userinfo_endpoint, headers={
@@ -111,9 +114,7 @@ def auth_callback(request):
         return HttpResponseBadRequest('Invalid User Info Response')
 
     user_json = user_response.json()
-
-    return JsonResponse(dict(userInfoResponse=user_json,
-                             idTokenVerification=verify_id(id_token)))
+    return render(request, 'profile.html', user_json)
 
 
 def verify_id(token):
