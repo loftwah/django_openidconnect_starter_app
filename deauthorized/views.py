@@ -96,10 +96,7 @@ def auth_callback(request):
     try:
         access_token_response.raise_for_status()
     except:
-        c = access_token_response.status_code
-        p = json.dumps(params)
-        logger.error("access token request {} error: {}".format(c, p))
-        raise
+        return auth(request)
 
     access_json = access_token_response.json()
     access_token = access_json['access_token']
