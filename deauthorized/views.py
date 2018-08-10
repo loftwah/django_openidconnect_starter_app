@@ -113,7 +113,24 @@ def auth_callback(request):
     if user_response.status_code != 200:
         return HttpResponseBadRequest('Invalid User Info Response')
 
+    # stub in missing props
     user_json = user_response.json()
+
+    if 'name' not in user_json:
+        user_json['name'] = user_json['sub']
+
+    if 'nickname' not in user_json:
+        user_json['nickname'] = 'nickname'
+
+    if 'email' not in user_json:
+        user_json['email'] = 'email'
+
+    if 'email_verified' not in user_json:
+        user_json['email_verified'] = 'email_verified'
+
+    if 'updated_at' not in user_json:
+        user_json['updated_at'] = 'updated_at'
+
     return render(request, 'profile.html', user_json)
 
 
