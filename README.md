@@ -6,8 +6,8 @@
 ## Create a Deauthorized Application
 
 1. Sign up to the Deauthorized Beta
-2. Log into [Deauthorized Dashboard](https://www.deauthorized.com/users/sign_in)
-3. Create a new application from [Applications](https://www.deauthorized.com/apps/new) tab
+2. Log into Deauthorized Dashboard
+3. Create a new application from Applications tab
 
 With your application provisioned, you will have the necessary `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` to launch the sample application.
 
