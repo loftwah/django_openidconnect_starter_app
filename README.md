@@ -26,6 +26,7 @@ Heroku is the fastest way to get the sample app running.
 ## Single Click Heroku Deployment
 
 1. Deploy by clicking button below: 
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 2. Update `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` environment vars with you with those you provisioned in the Deauthorized dashboard.
