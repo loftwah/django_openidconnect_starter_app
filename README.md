@@ -5,7 +5,7 @@
 
 ## Create a Deauthorized Application
 
-1. Sign up to the [Deauthorized Beta](https://www.deauthorized.com/beta_invite)
+1. Sign up to the Deauthorized Beta
 2. Log into [Deauthorized Dashboard](https://www.deauthorized.com/users/sign_in)
 3. Create a new application from [Applications](https://www.deauthorized.com/apps/new) tab
 
@@ -25,7 +25,9 @@ Heroku is the fastest way to get the sample app running.
 
 ## Single Click Heroku Deployment
 
-1. Deploy using single-click: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+1. Deploy by clicking button below: 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 2. Update `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` environment vars with you with those you provisioned in the Deauthorized dashboard.
 
 ## Manual Heroku Deployment
@@ -40,7 +42,7 @@ cd python_openid_connect_starter_app
 
 2. Create Heroku Application:
 ```sh
-**$ heroku create --app deauthorized-django-sample**
+$ heroku create --app deauthorized-django-sample
 Creating ⬢ deauthorized-django-sample... done
 https://deauthorized-django-sample.herokuapp.com/ | https://git.heroku.com/deauthorized-django-sample.git
 ```
