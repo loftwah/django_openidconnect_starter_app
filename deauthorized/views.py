@@ -1,10 +1,6 @@
 from os import environ
 from base64 import b64decode
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.http import urlencode
@@ -23,15 +19,15 @@ from jwkest.jws import JWS
 
 import requests
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 OPENID_ISSUER = environ.get('OPENID_ISSUER', 'https://srv.qryp.to/op')
 OPENID_CLIENT_ID = environ.get('OPENID_CLIENT_ID', 'deauthorized')
 OPENID_CLIENT_SECRET = environ.get('OPENID_CLIENT_SECRET', '123')
 SCOPES_SUPPORTED = ['openid', 'email', 'profile', 'address']
-HOST = environ.get('OPENID_HOST', 'srv.qryp.to')
-PORT = environ.get('OPENID_PORT', '443')
-SCHEME = 'https'
-
 
 client = Client(client_authn_method=CLIENT_AUTHN_METHOD)
 provider_info = client.provider_config(OPENID_ISSUER)

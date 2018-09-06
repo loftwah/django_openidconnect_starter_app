@@ -14,14 +14,6 @@
       "description": "Client secret provided from OpenID provider",
       "value": "123"
     },
-    "OPENID_HOST": {
-      "description": "OpenID provider hostname",
-      "value": "srv.qryp.to"
-    },
-    "OPENID_PORT": {
-      "description": "OpenID provider port number",
-      "value": "443"
-    },
     "OPENID_ISSUER": {
       "description": "OpenID issuer URL",
       "value": "https://srv.qryp.to/op"

@@ -14,8 +14,6 @@ With your application provisioned, you will have the necessary `OPENID_CLIENT_ID
 ```
 OpenID Client ID: 0d2ee26a-e0d6-4b91-aded-1ef0618f62c2 ## This is the OPENID_CLIENT_ID
 OpenID Client Secret: dvEJSuG3Y8DYS/hcaxEKigYK25WeYCOgxCJLDH3EpH/vUI1X1hzSErDlNfLID9aP  ## This is the OPENID_CLIENT_SECRET
-OpenID Host: srv.qryp.to
-OpenID Port: 443
 OpenID Issuer: https://srv.qryp.to/op
 ```
 
