@@ -59,3 +59,13 @@ heroku open
 ## Documentation
 
 For more information on using Deauthorized's biometric authentication solutions, [visit our website](https://www.deauthorized.com)
+
+
+## Running Tests
+
+This sample includes a test suite to help with customization and development.
+
+To run the tests, open a terminal to the sample project directory and run:
+```sh
+pytest -sv
+```
