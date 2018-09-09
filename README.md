@@ -1,7 +1,10 @@
 # Django OpenID Connect with Deauthorized Example
+[![Build Status](https://travis-ci.org/brendancol/django_openidconnect_starter_app.svg?branch=master)](https://travis-ci.org/brendancol/django_openidconnect_starter_app) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Deauthorized/django_openidconnect_starter_app/)
+--------
 
 - This is a sample Django 2.0 app that uses OpenID Connect with the Deauthorized server.
 - This app also serves as a basic blueprint for intergation with your apps for development.  
+
 
 ## Create a Deauthorized Application
 
@@ -23,7 +26,7 @@ Heroku is the fastest way to get the sample app running.
 
 ### Single Click Heroku Deployment
 
-1. Deploy by clicking button below:<br/><br/>[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Deauthorized/django_openidconnect_starter_app/)
+1. Deploy by clicking Heroku deploy button above
 
 2. Update `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` environment vars with you with those you provisioned in the Deauthorized dashboard.
 

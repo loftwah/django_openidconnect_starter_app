@@ -2,9 +2,9 @@ from unittest import mock
 
 from django.test import TestCase, RequestFactory
 
-from .views import index
-from .views import auth
-from .views import auth_callback
+from deauthorized.views import index
+from deauthorized.views import auth
+from deauthorized.views import auth_callback
 
 
 class MockResponse:
