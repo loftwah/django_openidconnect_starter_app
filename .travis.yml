@@ -6,4 +6,11 @@ cache: pip
 install:
   - pip install -r requirements.txt
 script:
-  - python tests.py
+  - python deauthorized/tests.py
+
+env:
+  - OPENID_CLIENT_ID=test_client_id
+  - OPENID_CLIENT_SECRET=test_secret_id
+  - OPENID_ISSUER=https://srv.qryp.to/op
+
+
