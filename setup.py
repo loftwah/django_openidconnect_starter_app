@@ -20,6 +20,6 @@ setup(
     ],
     keywords='biometric authentication u2f fido',
     packages=find_packages(),
-    install_requires=['pyoidc', 'django', 'requests',
+    install_requires=['oic', 'django', 'requests',
                       'pytest', 'pytest-django']
 )
