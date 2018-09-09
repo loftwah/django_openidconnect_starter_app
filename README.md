@@ -1,5 +1,5 @@
 # Django OpenID Connect with Deauthorized Example
-[![Build Status](https://travis-ci.org/brendancol/django_openidconnect_starter_app.svg?branch=master)](https://travis-ci.org/brendancol/django_openidconnect_starter_app) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Deauthorized/django_openidconnect_starter_app/)
+[![Build Status](https://travis-ci.org/Deauthorized/django_openidconnect_starter_app.svg?branch=master)](https://travis-ci.org/Deauthorized/django_openidconnect_starter_app) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Deauthorized/django_openidconnect_starter_app/)
 --------
 
 - This is a sample Django 2.0 app that uses OpenID Connect with the Deauthorized server.
