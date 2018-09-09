@@ -3,6 +3,8 @@
 - This is a sample Django 2.0 app that uses OpenID Connect with the Deauthorized server.
 - This app also serves as a basic blueprint for intergation with your apps for development.  
 
+[![Build Status](https://travis-ci.org/brendancol/django_openidconnect_starter_app.svg?branch=master)](https://travis-ci.org/brendancol/django_openidconnect_starter_app)
+
 ## Create a Deauthorized Application
 
 1. Sign up to the Deauthorized Beta
