@@ -1,0 +1,13 @@
+version: '2'
+services:
+  website:
+    env_file: .env
+    build: .
+    command: >
+      /venv/bin/python manage.py runserver 0.0.0.0:8000
+    environment:
+      PYTHONUNBUFFERED: 'true'
+    volumes:
+      - '.:/django-deauthorized'
+    ports:
+      - '8000:8000'

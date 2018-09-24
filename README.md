@@ -37,8 +37,8 @@ To experiment with making edits to the sample application:
 1. Clone sample application locally
 
 ```sh
-git clone git@github.com:Deauthorized/python_openidconnect_starter_app.git
-cd python_openid_connect_starter_app
+git clone https://github.com/Deauthorized/django_openidconnect_starter_app
+cd django_openidconnect_starter_app
 ```
 
 2. Create Heroku Application:
@@ -71,4 +71,25 @@ This sample includes a test suite to help with customization and development.
 To run the tests, open a terminal to the sample project directory and run:
 ```sh
 pytest -sv
+```
+
+
+## Running using Docker & Docker Compose
+
+Assuming you have an update version of `Docker` installed, the following commands will help you run the sample app:
+
+1. Clone the example repo and browse to the root:
+
+```bash
+git clone https://github.com/Deauthorized/django_openidconnect_starter_app
+cd django_openidconnect_starter_app
+docker-compose up --build
+```
+
+2. Update the `.env` file with the `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` which you obtain while provisioning your application.
+
+3. Use docker compose to build and launch the container
+
+```bash
+docker-compose up --build
 ```
