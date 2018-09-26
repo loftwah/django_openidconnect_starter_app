@@ -1,16 +1,33 @@
+{% extends "base.html" %}
 {% block content %}
-<div class="container mt-300">
+<div class="container page-content">
   <div class="row">
-    <div class="col-md-6 offset-md-3 text-center">
-      {% url 'auth' as auth_url %}
-      <a href="{{ auth_url }}" class="btn btn-primary btn-lg">
-          <i class='fas fa-fingerprint'></i> Login with FIDO UAF and OpenID Connect
-      </a>
-      <hr>
-      <a class="login-links left" href="">Mobile App</a>
-      <a class="login-links right" href="">Privacy Policy</a>
-      <a class="login-links right" href="">Terms</a>
-    </div>
+      <div class="col-md-4 col-sm-6 se-feature-style-3">
+        <div class="feature-wrap">
+          <i class="icon ion-ios-analytics-outline"></i>
+          <h5>Risk Mitigation</h5>
+          <p>Reduce the risk of data breaches and liability from account takeover fraud.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 se-feature-style-3">
+        <div class="feature-wrap">
+          <i class="icon ion-ios-paper-outline"></i>
+          <h5>Protect Customers</h5>
+          <p>Provide your customers and employees with the gold standard in secure authenication.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 se-feature-style-3">
+        <div class="feature-wrap">
+          <i class="icon ion-ios-lightbulb-outline"></i>
+          <h5>Secure Communication</h5>
+          <p>Keep all your online accounts safe. No matter what.</p>
+        </div>
+      </div>
+
+      <hr />
+
   </div>
 </div>
 {% endblock %}

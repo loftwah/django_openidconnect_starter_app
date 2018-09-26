@@ -34,7 +34,31 @@ provider_info = client.provider_config(OPENID_ISSUER)
 auth_endpoint = provider_info['authorization_endpoint']
 token_endpoint = provider_info['token_endpoint']
 userinfo_endpoint = provider_info['userinfo_endpoint']
+end_session_endpoint = provider_info['end_session_endpoint']
+revocation_endpoint = provider_info['revocation_endpoint']
+
 jwks_uri = provider_info['jwks_uri']
+
+
+def logout(request):
+
+    # get logout url from end_session_endpoint
+
+    # params = {
+    #     'grant_type': 'authorization_code',
+    #     'code': response['code'],
+    #     'redirect_uri': redirect_uri
+    # }
+
+    # openid_auth = (OPENID_CLIENT_ID, OPENID_CLIENT_SECRET)
+    # access_token_response = requests.post(end_session_endpoint,
+    #                                       auth=openid_auth,
+    #                                       data=params)
+    # try:
+    #     access_token_response.raise_for_status()
+    # except:
+    #     return JsonResponse({'message': 'error during access token request'})
+    pass
 
 
 def index(request):

@@ -1,0 +1,64 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+body {
+ font-family: 'Lato', 'sans-serif';
+ min-height: 600px;
+}
+
+
+* {
+  border-radius: 0 !important;
+}
+
+.page-content {
+ min-height: 600px;
+}
+
+.navbar-right {
+  margin: 0;
+}
+
+.navbar-right {
+  margin: 0;
+}
+
+.profile {
+  min-height: 230px;
+  display: inline-block;
+}
+
+.divider {
+  border-top:1px solid rgba(0,0,0,0.1);
+}
+
+.emphasis {
+  border-top: 4px solid transparent;
+}
+
+.emphasis:hover {
+  border-top: 4px solid #1abc9c;
+}
+
+.emphasis h2 {
+  margin-bottom:0;
+}
+
+span.tags {
+  background: #1abc9c;
+  border-radius: 2px;
+  color: #f5f5f5;
+  font-weight: bold;
+  padding: 2px 4px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0495c9;
+    border-color: #357ebd; /*set the color you want here*/
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #00b3db;
+    border-color: #285e8e; /*set the color you want here*/
+}
