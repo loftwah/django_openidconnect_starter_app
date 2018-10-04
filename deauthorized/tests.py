@@ -78,9 +78,10 @@ class DeauthorizedTest(TestCase):
         assert response.status_code == 302
 
     def test_logout_view(self):
-        self.client.login(id_token=MOCK_ACCESS_TOKEN)
+        self.client.force_login(self.user)
         logout_response = self.client.get('/logout')
         assert logout_response.status_code == 302
+        assert MOCK_ID_TOKEN in logout_response.url
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     @mock.patch('requests.post', side_effect=mocked_requests_post)
