@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'deauthorized'
 ]
 
+AUTH_USER_MODEL = 'deauthorized.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

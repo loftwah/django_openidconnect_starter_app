@@ -5,6 +5,9 @@
     <div class="col-md-6 offset-md-3 text-center">
 
       {% if user.is_authenticated %}
+	  <h2>You are already authenticated...</h2>
+	  <p><strong>Access Token: </strong> {{ user.access_token }}</p>
+	  <p><strong>ID Token: </strong> {{ user.id_token }}</p>
 
           {% url 'logout' as logout_url %}
 	  <a href="{{ logout_url }}" class="btn btn-primary btn-lg">
