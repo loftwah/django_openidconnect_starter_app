@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+body {
+ font-family: 'Lato', 'sans-serif';
+ min-height: 600px;
+}
+
+.mt-300 {
+  margin-top:300px;
+}
+
+
+* {
+  border-radius: 0 !important;
+}

@@ -4,6 +4,11 @@ from base64 import b64decode
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.http import urlencode
+from django.contrib.auth import get_user_model
+
+from django.contrib.auth import login
+from django.contrib.auth import logout as system_logout
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -23,6 +28,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+User = get_user_model()
+
 
 OPENID_ISSUER = environ.get('OPENID_ISSUER', 'https://srv.qryp.to/op')
 OPENID_CLIENT_ID = environ.get('OPENID_CLIENT_ID', 'deauthorized')
@@ -34,7 +41,28 @@ provider_info = client.provider_config(OPENID_ISSUER)
 auth_endpoint = provider_info['authorization_endpoint']
 token_endpoint = provider_info['token_endpoint']
 userinfo_endpoint = provider_info['userinfo_endpoint']
+end_session_endpoint = provider_info['end_session_endpoint']
+revocation_endpoint = provider_info['revocation_endpoint']
+
 jwks_uri = provider_info['jwks_uri']
+
+
+@login_required(login_url='/')
+def logout(request):
+    redirect_uri = 'https://{}{}'.format(request.get_host(),
+                                         reverse('end_session_callback'))
+    params = {
+        'id_token_hint': request.user.id_token,
+        'state': rndstr(),
+        'post_logout_redirect_uri': redirect_uri
+    }
+
+    system_logout(request)
+    return redirect(end_session_endpoint + '?' + urlencode(params))
+
+
+def end_session_callback(request):
+    return render(request, 'index.html')
 
 
 def index(request):
@@ -108,6 +136,12 @@ def auth_callback(request):
 
     if user_response.status_code != 200:
         return HttpResponseBadRequest('Invalid User Info Response')
+
+    user, created = User.objects.get_or_create(id_token=id_token)
+    user.access_token = access_token
+    user.save()
+
+    login(request, user)
 
     # stub in missing props
     user_json = user_response.json()
