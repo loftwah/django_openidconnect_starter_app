@@ -1,15 +1,15 @@
-# Django OpenID Connect with Deauthorized Example
-[![Build Status](https://travis-ci.org/Deauthorized/django_openidconnect_starter_app.svg?branch=master)](https://travis-ci.org/Deauthorized/django_openidconnect_starter_app) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Deauthorized/django_openidconnect_starter_app/)
+# Django OpenID Connect with Ultra Auth Example
+[![Build Status](https://travis-ci.org/UltraAuth/django_openidconnect_starter_app.svg?branch=master)](https://travis-ci.org/UltraAuth/django_openidconnect_starter_app) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/UltraAuth/django_openidconnect_starter_app/)
 --------
 
-- This is a sample Django 2.0 app that uses OpenID Connect with the Deauthorized server.
+- This is a sample Django 2.0 app that uses OpenID Connect with the Ultra Auth server.
 - This app also serves as a basic blueprint for intergation with your apps for development.  
 
 
-## Create a Deauthorized Application
+## Create a Ultra Auth Application
 
-1. Sign up to the Deauthorized Beta
-2. Log into Deauthorized Dashboard
+1. Sign up to the Ultra Auth Beta
+2. Log into Ultra Auth Dashboard
 3. Create a new application from Applications tab
 
 With your application provisioned, you will have the necessary `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` to launch the sample application.
@@ -28,7 +28,7 @@ Heroku is the fastest way to get the sample app running.
 
 1. Deploy by clicking Heroku deploy button above
 
-2. Update `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` environment vars with you with those you provisioned in the Deauthorized dashboard.
+2. Update `OPENID_CLIENT_ID` and `OPENID_CLIENT_SECRET` environment vars with you with those you provisioned in the Ultra Auth dashboard.
 
 ### Manual Heroku Deployment
 
@@ -37,7 +37,7 @@ To experiment with making edits to the sample application:
 1. Clone sample application locally
 
 ```sh
-git clone https://github.com/Deauthorized/django_openidconnect_starter_app
+git clone https://github.com/UltraAuth/django_openidconnect_starter_app
 cd django_openidconnect_starter_app
 ```
 
@@ -49,7 +49,7 @@ git config --list | grep heroku
 git push heroku master
 ```
 
-3. Make your code updates in [`deauthorized/views.py`](https://github.com/Deauthorized/django_openidconnect_starter_app/blob/master/deauthorized/views.py)
+3. Make your code updates in [`deauthorized/views.py`](https://github.com/UltraAuth/django_openidconnect_starter_app/blob/master/deauthorized/views.py)
 
 ```sh
 git add deauthorized/views.py
@@ -61,7 +61,7 @@ heroku open
 
 ## Documentation
 
-For more information on using Deauthorized's biometric authentication solutions, [visit our website](https://www.deauthorized.com)
+For more information on using Ultra Auth's biometric authentication solutions, [visit our website](https://www.deauthorized.com)
 
 
 ## Running Tests
@@ -81,7 +81,7 @@ Assuming you have an update version of `Docker` installed, the following command
 1. Clone the example repo and browse to the root:
 
 ```bash
-git clone https://github.com/Deauthorized/django_openidconnect_starter_app
+git clone https://github.com/UltraAuth/django_openidconnect_starter_app
 cd django_openidconnect_starter_app
 docker-compose up --build
 ```
