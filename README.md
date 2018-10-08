@@ -3,12 +3,12 @@
 --------
 
 - This is a sample Django 2.0 app that uses OpenID Connect with the Ultra Auth server.
-- This app also serves as a basic blueprint for intergation with your apps for development.  
+- This app also serves as a basic blueprint for interaction with your apps for development.  
 
 
 ## Create a Ultra Auth Application
 
-1. Sign up to the Ultra Auth Beta
+1. Sign up [`Ultra Auth`](https://www.ultraauth.com/user/sign_up)
 2. Log into Ultra Auth Dashboard
 3. Create a new application from Applications tab
 
@@ -61,7 +61,7 @@ heroku open
 
 ## Documentation
 
-For more information on using Ultra Auth's biometric authentication solutions, [visit our website](https://www.deauthorized.com)
+For more information on using Ultra Auth's biometric authentication solutions, [visit our website](https://www.ultraauth.com)
 
 
 ## Running Tests
