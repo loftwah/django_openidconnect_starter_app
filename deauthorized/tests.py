@@ -5,7 +5,6 @@ from django.test import TestCase, RequestFactory
 
 from deauthorized.views import index
 from deauthorized.views import auth
-from deauthorized.views import logout
 
 from django.contrib.auth import get_user_model
 from django.test.client import Client
@@ -13,8 +12,8 @@ from django.test.client import Client
 User = get_user_model()
 
 
-MOCK_ID_TOKEN = 'idtokenabcde12345'
-MOCK_ACCESS_TOKEN = 'accesstokenabcde12345'
+MOCK_ID_TOKEN = 't' * 1024
+MOCK_ACCESS_TOKEN = 'a' * 256
 
 
 class MockResponse:
@@ -58,13 +57,6 @@ class DeauthorizedTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        user_params = dict(id_token=MOCK_ID_TOKEN,
-                           access_token=MOCK_ACCESS_TOKEN)
-        user, created = User.objects.get_or_create(**user_params)
-        user.set_unusable_password()
-        user.save()
-        self.user = user
-
         self.client = Client()
 
     def test_index_view(self):
@@ -78,7 +70,12 @@ class DeauthorizedTest(TestCase):
         assert response.status_code == 302
 
     def test_logout_view(self):
-        self.client.force_login(self.user)
+        user_params = dict(id_token=MOCK_ID_TOKEN,
+                           access_token=MOCK_ACCESS_TOKEN)
+        user, created = User.objects.get_or_create(**user_params)
+        user.set_unusable_password()
+        user.save()
+        self.client.force_login(user)
         logout_response = self.client.get('/logout')
         assert logout_response.status_code == 302
         assert MOCK_ID_TOKEN in logout_response.url
@@ -95,3 +92,23 @@ class DeauthorizedTest(TestCase):
         assert user is not None
         assert user.id_token == MOCK_ID_TOKEN
         assert user.access_token == MOCK_ACCESS_TOKEN
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    @mock.patch('requests.post', side_effect=mocked_requests_post)
+    def test_auth_callback_creates_user(self, mock_post, mock_get):
+        request_params = {'code': 'test', 'state': 'test'}
+        response = self.client.get('/openid_auth_callback', request_params)
+        assert response.status_code == 200
+        assert 'text/html' in response.get('content-type')
+
+        user = User.objects.get(id_token=MOCK_ID_TOKEN)
+        assert user is not None
+        assert user.id_token == MOCK_ID_TOKEN
+        assert user.access_token == MOCK_ACCESS_TOKEN
+
+    def test_user_get_or_create(self):
+        token = 'asdf'
+        user, _ = User.objects.get_or_create(id_token='asdf')
+        assert user is not None
+        assert user.id_token == token
+        assert user.access_token is None

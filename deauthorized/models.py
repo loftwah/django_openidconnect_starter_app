@@ -56,12 +56,11 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
 
-    id_token = models.CharField(
-        verbose_name='deauthorized id token',
-        max_length=2048,
+    id_token = models.TextField(
+        verbose_name='id token',
         unique=True,
     )
-    access_token = models.CharField(max_length=2048, null=True)
+    access_token = models.TextField(null=True)
 
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
