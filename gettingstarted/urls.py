@@ -12,9 +12,5 @@ urlpatterns = [
     url(r'^logout', deauthorized.views.logout, name='logout'),
     url(r'^openid_auth_callback', deauthorized.views.auth_callback,
         name='openid_auth_callback'),
-    url(r'^end_session_callback', deauthorized.views.end_session_callback,
-        name='end_session_callback'),
     path('admin/', admin.site.urls),
 ]
-
-from django.contrib.auth import logout

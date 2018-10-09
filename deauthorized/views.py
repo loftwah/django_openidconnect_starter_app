@@ -49,8 +49,9 @@ jwks_uri = provider_info['jwks_uri']
 
 @login_required(login_url='/')
 def logout(request):
-    redirect_uri = 'https://{}{}'.format(request.get_host(),
-                                         reverse('end_session_callback'))
+
+    redirect_uri = 'https://{}'.format(request.get_host())
+
     params = {
         'id_token_hint': request.user.id_token,
         'state': rndstr(),
@@ -59,10 +60,6 @@ def logout(request):
 
     system_logout(request)
     return redirect(end_session_endpoint + '?' + urlencode(params))
-
-
-def end_session_callback(request):
-    return render(request, 'index.html')
 
 
 def index(request):
