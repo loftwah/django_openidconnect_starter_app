@@ -6,7 +6,7 @@ from django.contrib.auth.models import (
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, id_token, access_token, password=None,
+    def create_user(self, id_token, access_token=None, password=None,
                     is_active=None, is_staff=False, is_admin=False):
         """
         Creates and saves a User with the given email and password.
@@ -58,10 +58,10 @@ class User(AbstractBaseUser):
 
     id_token = models.CharField(
         verbose_name='deauthorized id token',
-        max_length=255,
+        max_length=2048,
         unique=True,
     )
-    access_token = models.CharField(max_length=255, null=True)
+    access_token = models.CharField(max_length=2048, null=True)
 
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
