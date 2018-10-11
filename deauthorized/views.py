@@ -50,7 +50,7 @@ jwks_uri = provider_info['jwks_uri']
 @login_required(login_url='/')
 def logout(request):
 
-    redirect_uri = 'https://{}/'.format(request.get_host())
+    redirect_uri = 'https://{}'.format(request.get_host())
 
     params = {
         'id_token_hint': request.user.id_token,
